@@ -1,0 +1,11 @@
+<h1>Welcome - down below a list of all the existing lists (<%= @lists.count %>)</h1>
+
+<div>
+  <ul>
+    <% @lists.each do |list|  %>
+      <li><%= link_to "#{list.name}", list_path(list) %></li>
+    <% end %>
+  </ul>
+</div>
+
+<%= link_to "New List", new_list_path, class: "btn btn-default btn-primary m-3" %>

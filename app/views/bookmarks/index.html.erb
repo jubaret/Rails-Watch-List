@@ -1,0 +1,14 @@
+<h1>List of bookmarks for <%= @list.name %></h1>
+
+<div>
+  <ul>
+    <% @bookmarks.each do |bookmark|  %>
+      <li>
+        <%= link_to "#{bookmark.comment}", list_bookmarks_path(@list) %>
+        <%# <%= link_to "#{list.name}", list_path(list) %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<%= link_to "Back", lists_path, class: "btn btn-default btn-secondary m-3" %>
