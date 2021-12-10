@@ -2,6 +2,7 @@
 
 <%= simple_form_for(@list) do |f|%>
     <%= f.input :name%>
+    <%= f.input :photo, as: :file %>
     <% if @list.id %>
       <%= f.submit "Submit", class: "btn btn-default btn-primary m-3" %>
       <%= link_to "Cancel", lists_path, class: "btn btn-light" %>

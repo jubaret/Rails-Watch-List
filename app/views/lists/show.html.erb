@@ -1,16 +1,43 @@
   <h2>Welcome to list "<%= @list.name %>"</h2>
-  <ul><% @list.movies.each do |movie|  %>
+
+  <% if @list.photo.key %>
+    <%= cl_image_tag @list.photo.key, height: 300, width: 400, crop: :fill %>
+  <% end %>
+
+<h3>Movies:</h3>
+  <div class="row">
+    <% @list.movies.each do |movie| %>
+    <% @bookmark = Bookmark.where('list_id = ?', @list.id).where('movie_id = ?', movie.id) %>
+      <div class="card col-3 m-1" style="width: 18rem;">
+        <%= image_tag "https://image.tmdb.org/t/p/w500#{movie.poster_url}", alt: "OSEF"  %>
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= movie.title %>
+            <%= link_to '',
+                bookmark_path(@bookmark.ids),
+                method: :delete,
+                class: "far fa-trash-alt",
+                data: { confirm: "Are you sure?" } %>
+          </h5>
+          <p class="card-text"> <%= movie.overview %></p>
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+
+
+  <%= link_to "Add a movie to this list", new_list_bookmark_path(@list), class: "btn btn-default btn-primary m-3" %>
+
+<h3>Reviews:</h3>
+  <ul><% @list.reviews.each do |review|  %>
     <li>
-      <%= movie.title %>
-      <% @bookmark = Bookmark.where('list_id = ?', @list.id).where('movie_id = ?', movie.id) %>
-      <%= link_to '',
-              bookmark_path(@bookmark.ids),
-              method: :delete,
-              class: "far fa-trash-alt",
-              data: { confirm: "Are you sure?" } %>
+      <%= review.comment %>
     </li>
     <% end %>
   </ul>
+<%= link_to "Add a review to this list", new_list_review_path(@list), class: "btn btn-default btn-primary m-3" %>
 
-  <%= link_to "Add a movie to this list", new_list_bookmark_path(@list), class: "btn btn-default btn-primary m-3" %>
+
+
   <%= link_to "Back", lists_path, class: "btn btn-default btn-secondary m-3" %>

@@ -1,9 +1,34 @@
 <h1>Welcome - down below a list of all the existing lists (<%= @lists.count %>)</h1>
 
 <div>
+  <% @lists.each do |list|  %>
+  <div class="card-product">
+    <% if list.photo.key %>
+          <%= cl_image_tag list.photo.key, height: 20, width: 20 , crop: :fill %>
+        <% else %>
+          <%= image_tag "missing_photo.jpg", alt: "Missing", width: 20 %>
+        <% end %>
+    <div class="card-product-infos">
+      <h2>
+        <%= link_to "#{list.name}", list_path(list) %>
+      </h2>
+      <p>Product description with <strong>relevant info</strong> only.</p>
+    </div>
+    <% end %>
+  </div>
+
+
+<div>
   <ul>
     <% @lists.each do |list|  %>
-      <li><%= link_to "#{list.name}", list_path(list) %></li>
+      <li>
+        <% if list.photo.key %>
+          <%= cl_image_tag list.photo.key, height: 20, width: 20 , crop: :fill %>
+        <% else %>
+          <%= image_tag "missing_photo.jpg", alt: "Missing", width: 20 %>
+        <% end %>
+        <%= link_to "#{list.name}", list_path(list) %>
+      </li>
     <% end %>
   </ul>
 </div>
