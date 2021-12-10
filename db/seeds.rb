@@ -12,7 +12,6 @@ def retrieve_movies
   url = "http://tmdb.lewagon.com/movie/top_rated?"
   api_result = URI.open(url).read
   api_result = JSON.parse(api_result)
-  byebug
   api_result["results"].each do |movie|
     m = Movie.new
     m.title = movie["title"]
